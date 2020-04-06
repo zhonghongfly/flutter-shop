@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
-import 'homePage.dart';
-import 'categoryPage.dart';
-import 'cartPage.dart';
-import 'memberPage.dart';
+import './home/index.dart';
+import './category/index.dart';
+import './cart/index.dart';
+import './member/index.dart';
 
 class IndexPage extends StatefulWidget {
   @override
