@@ -42,7 +42,7 @@ class FloorContent extends StatelessWidget {
 
   Widget _goodsItem(context, Map goods) {
     return Container(
-      width: ScreenUtil().setWidth(540),
+      width: ScreenUtil().setWidth(375),
       child: InkWell(
         onTap: () {
           Application.router

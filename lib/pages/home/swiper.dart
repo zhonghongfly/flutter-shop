@@ -12,10 +12,9 @@ class SwiperShow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ScreenUtil.init(context);
     return Container(
       color: Colors.white,
-      height: ScreenUtil().setHeight(400),
+      height: ScreenUtil().setHeight(333),
       width: ScreenUtil().setWidth(750),
       child: Swiper(
         itemBuilder: (BuildContext context, int index) {

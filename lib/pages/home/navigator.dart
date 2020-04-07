@@ -47,7 +47,7 @@ class TopNavigator extends StatelessWidget {
     return Container(
       color: Colors.white,
       margin: EdgeInsets.only(top: 5.0),
-      height: ScreenUtil().setHeight(380),
+      height: ScreenUtil().setHeight(300),
       padding: EdgeInsets.all(3.0),
       child: GridView.count(
         physics: NeverScrollableScrollPhysics(),

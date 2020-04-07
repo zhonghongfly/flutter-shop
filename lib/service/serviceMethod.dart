@@ -40,3 +40,11 @@ Future getHomePageBelowConten({params = const {}}) async {
 Future getCategory({params = const {}}) async {
   return await _request(servicePath['getCategory'], params: params);
 }
+
+Future getMallGoods({params = const {}}) async {
+  return await _request(servicePath['getMallGoods'], params: params);
+}
+
+Future getGoodDetailById({params = const {}}) async {
+  return await _request(servicePath['getGoodDetailById'], params: params);
+}

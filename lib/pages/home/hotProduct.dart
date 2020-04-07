@@ -29,7 +29,7 @@ class _HotProductState extends State<HotProduct> {
                   .navigateTo(context, "/detail?id=${val['goodsId']}");
             },
             child: Container(
-              width: ScreenUtil().setWidth(500),
+              width: ScreenUtil().setWidth(360),
               color: Colors.white,
               padding: EdgeInsets.all(5.0),
               margin: EdgeInsets.only(top: 10.0),

@@ -7,15 +7,15 @@ class HotTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(top: 10.0),
-      padding: EdgeInsets.all(5.0),
+      padding: EdgeInsets.all(10.0),
       alignment: Alignment.center,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border(
-            // bottom: BorderSide(width: 0.5, color: Colors.black12)
+            bottom: BorderSide(width: 0.5, color: Colors.black12)
           )
       ),
-      child: Text('火爆专区'),
+      child: Text('火爆专区', style: TextStyle(fontWeight: FontWeight.bold),),
     );
   }
 }

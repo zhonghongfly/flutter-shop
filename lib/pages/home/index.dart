@@ -4,6 +4,7 @@ import 'package:flutter_easyrefresh/easy_refresh.dart';
 import 'package:flutter_easyrefresh/material_header.dart';
 import 'dart:convert';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:async/async.dart';
 import '../../service/serviceMethod.dart' as HttpMethod;
 
 import './swiper.dart'; //轮播组件
@@ -17,18 +18,22 @@ import './hotTitle.dart'; //火爆专区标题
 import './hotProduct.dart'; //火爆商品列表
 
 class HomePage extends StatefulWidget {
-  @override
-  _HomePageState createState() => _HomePageState();
+  Map arguments; //定义接收的路由跳转参数map集合
+  HomePage({this.arguments});
+  _HomePageState createState() => _HomePageState(arguments: this.arguments);
 }
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   int page = 1;
   List<Map> hotGoodsList = [];
+  final AsyncMemoizer _memoizer = AsyncMemoizer(); //记忆器对象
 
-  _HomePageState() {
+  Map arguments; //路由跳转参数map集合
+  _HomePageState({Map arguments}) {
+    this.arguments = arguments;
     _getHotGoods();
-  }
+  } //接收构造参数并赋值
 
   @override
   bool get wantKeepAlive => true;
@@ -37,7 +42,7 @@ class _HomePageState extends State<HomePage>
     var formPage = {'page': page};
     HttpMethod.getHomePageBelowConten(params: formPage).then((val) {
       var data = json.decode(val.toString());
-      if(data['data'] == null) {
+      if (data['data'] == null) {
         Fluttertoast.showToast(
           msg: "没有数据了",
           toastLength: Toast.LENGTH_SHORT,
@@ -56,6 +61,12 @@ class _HomePageState extends State<HomePage>
     });
   }
 
+  Future _getHomePageContext() async {
+    return _memoizer.runOnce(() async {
+      return await HttpMethod.getHomePageContext();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +75,7 @@ class _HomePageState extends State<HomePage>
         centerTitle: true,
       ),
       body: FutureBuilder(
-        future: HttpMethod.getHomePageContext(),
+        future: _getHomePageContext(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             var data = json.decode(snapshot.data.toString());
@@ -110,7 +121,9 @@ class _HomePageState extends State<HomePage>
                 HotTitle(),
                 HotProduct(hotGoodsList)
               ]),
-              onRefresh: () async {},
+              onRefresh: () async {
+                _getHomePageContext();
+              },
               onLoad: () async {
                 _getHotGoods();
               },
