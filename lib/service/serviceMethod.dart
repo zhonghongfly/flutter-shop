@@ -10,10 +10,11 @@ Future _request(url, {params = const {}, String method = 'post'}) async {
   try {
     print('开始获取数据 ===> $url');
     if(method.toUpperCase() == 'POST') {
-      print('POST ===> $dio');
+      dio.options.contentType = "application/x-www-form-urlencoded";
+      print('POST ===> $params');
       response = await dio.post(url, data: params);
     } else if(method.toUpperCase() == 'GET') {
-      print('GET ===> $dio');
+      print('GET ===> $params');
       response = await dio.get(url);
     }
     if (response.statusCode == 200) {
@@ -34,4 +35,8 @@ Future getHomePageContext({params = const {}}) async {
 
 Future getHomePageBelowConten({params = const {}}) async {
   return await _request(servicePath['homePageBelowConten'], params: params);
+}
+
+Future getCategory({params = const {}}) async {
+  return await _request(servicePath['getCategory'], params: params);
 }
