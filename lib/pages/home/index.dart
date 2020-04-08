@@ -16,6 +16,8 @@ import './floorTitle.dart'; //floor标题
 import './floorContent.dart'; //floor内容
 import './hotTitle.dart'; //火爆专区标题
 import './hotProduct.dart'; //火爆商品列表
+import '../../util/dialog/progressDialog.dart'; //加载动画
+import '../../util/animation/circle.dart';
 
 class HomePage extends StatefulWidget {
   Map arguments; //定义接收的路由跳转参数map集合
@@ -28,6 +30,7 @@ class _HomePageState extends State<HomePage>
   int page = 1;
   List<Map> hotGoodsList = [];
   final AsyncMemoizer _memoizer = AsyncMemoizer(); //记忆器对象
+  bool _loading = true; //是否显示加载动画
 
   Map arguments; //路由跳转参数map集合
   _HomePageState({Map arguments}) {
@@ -78,6 +81,7 @@ class _HomePageState extends State<HomePage>
         future: _getHomePageContext(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
+            _loading = false;
             var data = json.decode(snapshot.data.toString());
             List<Map> swiperDataList =
                 (data['data']['slides'] as List).cast(); //轮播数据
@@ -129,9 +133,15 @@ class _HomePageState extends State<HomePage>
               },
             );
           } else {
-            return Center(
-              child: Text('加载中'),
-            );
+            return Container(
+                child: ProgressDialog(
+                  loading: _loading,
+                  progress: Circle(
+                    size: Size(100.0, 20.0),
+                    color: Color(0xff41B5F1),
+                ),
+                alpha: 0,
+            ));
           }
         },
       ),

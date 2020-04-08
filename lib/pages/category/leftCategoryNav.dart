@@ -58,20 +58,18 @@ class _LeftCategoryNavState extends State<LeftCategoryNav> {
         var childList = list[index].bxMallSubDto;
         var categoryId = list[index].mallCategoryId;
         Provide.value<ChildCategory>(context).changeCategory(categoryId, index);
-        Provide.value<ChildCategory>(context)
-            .getChildCategory(childList, categoryId);
+        Provide.value<ChildCategory>(context).getChildCategory(childList, categoryId);
         _getGoodList(context, categoryId: categoryId);
       },
       child: Container(
         height: ScreenUtil().setHeight(100),
         padding: EdgeInsets.only(left: 10, top: 20),
         decoration: BoxDecoration(
-            color: isClick ? Color.fromRGBO(236, 238, 239, 1.0) : Colors.white,
-            border:
-                Border(bottom: BorderSide(width: 1, color: Colors.black12))),
+            // color: isClick ? Color.fromRGBO(236, 238, 239, 1.0) : Colors.white,
+        ),
         child: Text(
           list[index].mallCategoryName,
-          style: TextStyle(fontSize: ScreenUtil().setSp(28)),
+          style: TextStyle(fontSize: ScreenUtil().setSp(28), color: isClick ? Color(0xffDD1A22) : Colors.black),
         ),
       ),
     );

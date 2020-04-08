@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
       title: '斯贝儿',
       debugShowCheckedModeBanner: false,
       onGenerateRoute: Application.router.generator,
-      theme: ThemeData(primaryColor: Colors.blue),
+      theme: ThemeData(primaryColor: Color(0xffC82519)),
       home: IndexPage(),
     ));
   }

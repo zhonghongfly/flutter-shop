@@ -8,9 +8,12 @@ import './detailsPage/detailsTopArea.dart';
 import './detailsPage/detailsWeb.dart';
 
 import '../../provide/detailsInfo.dart';
+import '../../util/dialog/progressDialog.dart'; //加载动画
+import '../../util/animation/circle.dart';
 
 class DetailsPage extends StatelessWidget {
   final String goodsId;
+  bool _loading = true;
   DetailsPage(this.goodsId);
 
   @override
@@ -30,6 +33,7 @@ class DetailsPage extends StatelessWidget {
             future: _getBackInfo(context),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+                _loading = false;
                 return Stack(
                   children: <Widget>[
                     ListView(
@@ -44,7 +48,15 @@ class DetailsPage extends StatelessWidget {
                   ],
                 );
               } else {
-                return Text('加载中........');
+                return Container(
+                child: ProgressDialog(
+                  loading: _loading,
+                  progress: Circle(
+                    size: Size(100.0, 20.0),
+                    color: Color(0xff41B5F1),
+                ),
+                alpha: 0,
+            ));
               }
             }));
   }

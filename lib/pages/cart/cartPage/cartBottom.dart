@@ -31,7 +31,7 @@ class CartBottom extends StatelessWidget {
         children: <Widget>[
           Checkbox(
             value: isAllCheck,
-            activeColor: Colors.pink,
+            activeColor: Color(0xffF3270C),
             onChanged: (bool val) {
               Provide.value<CartProvide>(context).changeAllCheckBtnState(val);
             },
@@ -47,7 +47,7 @@ class CartBottom extends StatelessWidget {
     double allPrice = Provide.value<CartProvide>(context).allPrice;
 
     return Container(
-      width: ScreenUtil().setWidth(430),
+      width: ScreenUtil().setWidth(400),
       alignment: Alignment.centerRight,
       child: Column(
         children: <Widget>[
@@ -55,14 +55,14 @@ class CartBottom extends StatelessWidget {
             children: <Widget>[
               Container(
                 alignment: Alignment.centerRight,
-                width: ScreenUtil().setWidth(280),
+                width: ScreenUtil().setWidth(200),
                 child: Text('合计:',
                     style: TextStyle(fontSize: ScreenUtil().setSp(36))),
               ),
               Container(
                 alignment: Alignment.centerLeft,
-                width: ScreenUtil().setWidth(150),
-                child: Text('￥${allPrice}',
+                width: ScreenUtil().setWidth(200),
+                child: Text('￥${allPrice.toStringAsFixed(2)}',
                     style: TextStyle(
                       fontSize: ScreenUtil().setSp(36),
                       color: Colors.red,
@@ -71,10 +71,10 @@ class CartBottom extends StatelessWidget {
             ],
           ),
           Container(
-            width: ScreenUtil().setWidth(430),
+            width: ScreenUtil().setWidth(360),
             alignment: Alignment.centerRight,
             child: Text(
-              '满10元免配送费，预购免配送费',
+              '满50免减100,特价优惠',
               style: TextStyle(
                   color: Colors.black38, fontSize: ScreenUtil().setSp(22)),
             ),
@@ -88,7 +88,7 @@ class CartBottom extends StatelessWidget {
   Widget goButton(context) {
     int allGoodsCount = Provide.value<CartProvide>(context).allGoodsCount;
     return Container(
-      width: ScreenUtil().setWidth(160),
+      width: ScreenUtil().setWidth(180),
       padding: EdgeInsets.only(left: 10),
       child: InkWell(
         onTap: () {},
@@ -96,9 +96,9 @@ class CartBottom extends StatelessWidget {
           padding: EdgeInsets.all(10.0),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              color: Colors.red, borderRadius: BorderRadius.circular(3.0)),
+              color: Color(0xffF11C0C), borderRadius: BorderRadius.circular(3.0)),
           child: Text(
-            '结算(${allGoodsCount})',
+            '结算($allGoodsCount)',
             style: TextStyle(color: Colors.white),
           ),
         ),

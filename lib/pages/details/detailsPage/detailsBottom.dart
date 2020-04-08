@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provide/provide.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 import '../../../provide/cart.dart';
 import '../../../provide/detailsInfo.dart';
 import '../../../provide/currentIndex.dart';
@@ -54,7 +56,7 @@ class DetailsBottom extends StatelessWidget {
                           border: Border.all(width: 2, color: Colors.white),
                           borderRadius: BorderRadius.circular(12.0)),
                       child: Text(
-                        '${goodsCount}',
+                        '$goodsCount',
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: ScreenUtil().setSp(22)),
@@ -69,6 +71,14 @@ class DetailsBottom extends StatelessWidget {
             onTap: () async {
               await Provide.value<CartProvide>(context)
                   .save(goodsID, goodsName, count, price, images);
+              Fluttertoast.showToast(
+                msg: "添加成功",
+                toastLength: Toast.LENGTH_SHORT,
+                gravity: ToastGravity.CENTER,
+                backgroundColor: Color.fromRGBO(104, 87, 229, 0.8),
+                textColor: Colors.white,
+                fontSize: 16.0,
+              );
             },
             child: Container(
               alignment: Alignment.center,

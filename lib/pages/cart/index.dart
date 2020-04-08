@@ -5,18 +5,29 @@ import '../../provide/cart.dart';
 import './cartPage/cartItem.dart';
 import './cartPage/cartBottom.dart';
 
+import '../../util/dialog/progressDialog.dart'; //加载动画
+import '../../util/animation/circle.dart';
+
 class CartPage extends StatelessWidget {
+  bool _loading;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('购物车'),
+        title: Text(
+          '购物车', 
+          textAlign: TextAlign.center,
+          style: TextStyle(color: Colors.black),
+        ),
+        backgroundColor: Colors.white,
+        centerTitle: true
       ),
       body: FutureBuilder(
         future: _getCartInfo(context),
         builder: (context, snapshot) {
           List cartList = Provide.value<CartProvide>(context).cartList;
           if (snapshot.hasData && cartList != null) {
+            _loading = false;
             return Stack(
               children: <Widget>[
                 Provide<CartProvide>(builder: (context, child, childCategory) {
@@ -37,7 +48,16 @@ class CartPage extends StatelessWidget {
               ],
             );
           } else {
-            return Text('正在加载');
+            _loading = true;
+            return Container(
+                child: ProgressDialog(
+                  loading: _loading,
+                  progress: Circle(
+                    size: Size(100.0, 20.0),
+                    color: Color(0xff41B5F1),
+                ),
+                alpha: 0,
+            ));
           }
         },
       ),

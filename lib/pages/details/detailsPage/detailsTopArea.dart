@@ -3,8 +3,12 @@ import 'package:provide/provide.dart';
 import '../../../provide/detailsInfo.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../../util/dialog/progressDialog.dart'; //加载动画
+import '../../../util/animation/circle.dart';
+
 //商品详情页的首屏区域，包括图片、商品名称，商品价格，商品编号的UI展示
 class DetailsTopArea extends StatelessWidget {
+  bool _loading = true;
   @override
   Widget build(BuildContext context) {
     return Provide<DetailsInfoProvide>(builder: (context, child, val) {
@@ -12,6 +16,7 @@ class DetailsTopArea extends StatelessWidget {
           Provide.value<DetailsInfoProvide>(context).goodsInfo.data.goodInfo;
 
       if (goodsInfo != null) {
+        _loading = false;
         return Container(
           color: Colors.white,
           padding: EdgeInsets.all(2.0),
@@ -25,7 +30,15 @@ class DetailsTopArea extends StatelessWidget {
           ),
         );
       } else {
-        return Text('正在加载中......');
+        return Container(
+                child: ProgressDialog(
+                  loading: _loading,
+                  progress: Circle(
+                    size: Size(100.0, 20.0),
+                    color: Color(0xff41B5F1),
+                ),
+                alpha: 0,
+            ));
       }
     });
   }
